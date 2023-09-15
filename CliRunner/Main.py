@@ -35,8 +35,8 @@ class Board:
             [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
             [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
             [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
-            [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
-            [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",]
+            [" ", "8", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "8", " ", " ", " ",],
+            [" ", "8", "8", " ", " ", " ", " ", " ", " ", " ", " ", " ", "8", " ", " ", " ",]
         ]
 
     def cycle_board(self):
@@ -71,25 +71,33 @@ class Board:
             print()
 
 try:
+
+    score = 0
+
     player = Player()
     board = Board()
 
     while True:
         if was_pressed and player.getmomentum() == 0:
-            player.momentum = 2
+            player.momentum = 3
             was_pressed = False
         
         if player.getmomentum() > 0:
             player.momentum -= 1
             player.y_location -= 1
         else:
-            if player.getlocation() < 8:
+            if player.getlocation() != 8:
                 player.y_location += 1
 
         board.cycle_board()
         board.printboard(player)
 
-        time.sleep(1)
+        if player.getlocation() == 8:
+            score += 100
+        
+        print(f"Score: {score}")
+
+        time.sleep(0.2)
         
         os.system('cls' if os.name == 'nt' else 'clear')
 
